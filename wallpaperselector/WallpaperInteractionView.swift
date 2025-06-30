@@ -81,7 +81,8 @@ struct WallpaperInteractionView: View {
             // Main toolbar overlay - shows in full screen mode
             MainToolbarView(
                 isVisible: scaleFactor == 1.0,
-                opacity: scaleFactor == 1.0 ? 1.0 : 0.0
+                opacity: scaleFactor == 1.0 ? 1.0 : 0.0,
+                yOffset: scaleFactor == 1.0 ? 0 : -50
             )
         )
         .overlay(
@@ -363,6 +364,7 @@ struct ToolbarView: View {
 struct MainToolbarView: View {
     let isVisible: Bool
     let opacity: Double
+    let yOffset: CGFloat
     
     var body: some View {
         if isVisible {
@@ -373,7 +375,7 @@ struct MainToolbarView: View {
                         Image("avatar")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 40, height: 40)
+                            .frame(width: 32, height: 32)
                             .clipShape(Circle())
                     }
                     
@@ -403,6 +405,7 @@ struct MainToolbarView: View {
                 Spacer()
             }
             .opacity(opacity)
+            .offset(y: yOffset)
         }
     }
 }
