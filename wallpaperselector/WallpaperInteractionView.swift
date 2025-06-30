@@ -78,7 +78,14 @@ struct WallpaperInteractionView: View {
             .scaleEffect(scaleFactor, anchor: .center) // Scale from center for better visual
         }
         .overlay(
-            // Toolbar overlay - separate from wallpaper content
+            // Main toolbar overlay - shows in full screen mode
+            MainToolbarView(
+                isVisible: scaleFactor == 1.0,
+                opacity: scaleFactor == 1.0 ? 1.0 : 0.0
+            )
+        )
+        .overlay(
+            // Selection toolbar overlay - shows in wallpaper selection mode
             ToolbarView(
                 isVisible: scaleFactor < 1.0,
                 opacity: toolbarOpacity,
@@ -105,7 +112,7 @@ struct WallpaperInteractionView: View {
     }
     
     private func initiateWallpaperSelection() {
-        // Scale down animation with rounded corners and show toolbar
+        // Scale down animation with rounded corners, hide main toolbar, show selection toolbar
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             scaleFactor = 0.75
             toolbarOpacity = 1.0
@@ -344,6 +351,68 @@ struct ToolbarView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 60) // Account for safe area
+                
+                Spacer()
+            }
+            .opacity(opacity)
+        }
+    }
+}
+
+// MARK: - Main Toolbar View
+struct MainToolbarView: View {
+    let isVisible: Bool
+    let opacity: Double
+    
+    var body: some View {
+        if isVisible {
+            VStack {
+                HStack(spacing: 16) {
+                    // Profile image
+                    Button(action: {}) {
+                        Image(systemName: "person.circle.fill")
+                            .foregroundColor(.white)
+                            .font(.system(size: 32))
+                            .background {
+                                Circle()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(width: 40, height: 40)
+                            }
+                    }
+                    
+                    Spacer()
+                    
+                    // Centered title
+                    Text("wallpaper selector")
+                        .foregroundColor(.white)
+                        .font(.system(size: 18, weight: .medium))
+                        .textCase(.lowercase)
+                    
+                    Spacer()
+                    
+                    // Right side elements
+                    HStack(spacing: 12) {
+                        Button(action: {}) {
+                            Image(systemName: "gearshape.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .font(.system(size: 16))
+                        }
+                        
+                        Button(action: {}) {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.white.opacity(0.8))
+                                .font(.system(size: 18))
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 60) // Account for safe area
+                .padding(.bottom, 12)
+                .background(
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .opacity(0.3)
+                )
                 
                 Spacer()
             }
