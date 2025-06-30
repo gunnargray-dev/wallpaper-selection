@@ -370,24 +370,21 @@ struct MainToolbarView: View {
                 HStack {
                     // User avatar on the left
                     Button(action: {}) {
-                        Image(systemName: "person.circle.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 32))
-                            .background {
-                                Circle()
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(width: 40, height: 40)
-                            }
+                        Image("avatar")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
                     }
                     
                     Spacer()
                     
-                    // Logo spot in the middle
+                    // Logo in the middle
                     Button(action: {}) {
-                        // Placeholder logo - you can replace with actual logo
-                        Image(systemName: "photo.stack.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 24, weight: .medium))
+                        Image("logo-pro")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 24)
                     }
                     
                     Spacer()
@@ -402,11 +399,6 @@ struct MainToolbarView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 60) // Account for safe area
                 .padding(.bottom, 12)
-                .background(
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .opacity(0.3)
-                )
                 
                 Spacer()
             }
