@@ -321,6 +321,11 @@ struct ToolbarView: View {
         if isVisible {
             VStack {
                 HStack {
+                    // Title
+                    Text("Choose a wallpaper")
+                        .foregroundColor(.white)
+                        .font(.system(size: 18, weight: .semibold))
+                    
                     Spacer()
                     
                     // Close button
