@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		1E4D4B592E0DBEAC00A0901D /* WallpaperUIkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallpaperUIkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E4D4B592E0DBEAC00A0901D /* wallpaperselector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = wallpaperselector.app; path = WallpaperUIkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1E4D4B5B2E0DBEAC00A0901D /* WallpaperUIkit */ = {
+		1E4D4B5B2E0DBEAC00A0901D /* wallpaperselector */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WallpaperUIkit;
+			path = wallpaperselector;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		1E4D4B502E0DBEAC00A0901D = {
 			isa = PBXGroup;
 			children = (
-				1E4D4B5B2E0DBEAC00A0901D /* WallpaperUIkit */,
+				1E4D4B5B2E0DBEAC00A0901D /* wallpaperselector */,
 				1E4D4B5A2E0DBEAC00A0901D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		1E4D4B5A2E0DBEAC00A0901D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1E4D4B592E0DBEAC00A0901D /* WallpaperUIkit.app */,
+				1E4D4B592E0DBEAC00A0901D /* wallpaperselector.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				1E4D4B5B2E0DBEAC00A0901D /* WallpaperUIkit */,
+				1E4D4B5B2E0DBEAC00A0901D /* wallpaperselector */,
 			);
 			name = WallpaperUIkit;
 			packageProductDependencies = (
 			);
-			productName = WallpaperUIkit;
-			productReference = 1E4D4B592E0DBEAC00A0901D /* WallpaperUIkit.app */;
+			productName = wallpaperselector;
+			productReference = 1E4D4B592E0DBEAC00A0901D /* wallpaperselector.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,7 +266,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ggray225-gmail.WallpaperUIkit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ggray225-gmail.wallpaperselector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -294,7 +294,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ggray225-gmail.WallpaperUIkit";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ggray225-gmail.wallpaperselector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
