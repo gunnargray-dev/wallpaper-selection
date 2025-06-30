@@ -227,7 +227,13 @@ struct MainContentView: View {
                     .padding(.bottom, 12)
                 }
                 .frame(height: 100)
-                .background(.ultraThinMaterial.opacity(0.5), in: RoundedRectangle(cornerRadius: 24))
+                .background(
+                    ZStack {
+                        Color.black.opacity(0.3) // Dark base layer
+                        .ultraThinMaterial.opacity(0.8) // Material overlay
+                    },
+                    in: RoundedRectangle(cornerRadius: 24)
+                )
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
                         .stroke(.quaternary, lineWidth: 0.5)
