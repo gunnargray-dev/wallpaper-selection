@@ -51,7 +51,8 @@ struct WallpaperInteractionView: View {
                                 isFirstWallpaper: index == 0,
                                 screenSize: screenSize,
                                 safeAreaInsets: safeAreaInsets,
-                                showBackground: true // Show background
+                                showBackground: true, // Show background
+                                cornerRadius: cornerRadius
                             )
                             .frame(width: screenSize.width, height: screenSize.height)
                             .id(index)
@@ -75,7 +76,6 @@ struct WallpaperInteractionView: View {
                 }
             }
             .scaleEffect(scaleFactor, anchor: .center) // Scale from center for better visual
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius)) // Add rounded corners when scaled down
         }
         .gesture(
             DragGesture()
@@ -136,13 +136,15 @@ struct MainContentView: View {
     let screenSize: CGSize
     let safeAreaInsets: EdgeInsets
     let showBackground: Bool
+    let cornerRadius: CGFloat
     
-    init(wallpaper: WallpaperData = WallpaperData(imageName: "wallpaper_1", fallbackColor: Color(.systemGray5)), isFirstWallpaper: Bool = true, screenSize: CGSize = CGSize(width: 400, height: 800), safeAreaInsets: EdgeInsets = EdgeInsets(), showBackground: Bool = true) {
+    init(wallpaper: WallpaperData = WallpaperData(imageName: "wallpaper_1", fallbackColor: Color(.systemGray5)), isFirstWallpaper: Bool = true, screenSize: CGSize = CGSize(width: 400, height: 800), safeAreaInsets: EdgeInsets = EdgeInsets(), showBackground: Bool = true, cornerRadius: CGFloat = 0) {
         self.wallpaper = wallpaper
         self.isFirstWallpaper = isFirstWallpaper
         self.screenSize = screenSize
         self.safeAreaInsets = safeAreaInsets
         self.showBackground = showBackground
+        self.cornerRadius = cornerRadius
     }
     
     var body: some View {
@@ -243,7 +245,8 @@ struct MainContentView: View {
                     WallpaperBackgroundView(
                         wallpaper: wallpaper,
                         isFirstWallpaper: isFirstWallpaper,
-                        screenSize: screenSize
+                        screenSize: screenSize,
+                        cornerRadius: cornerRadius
                     )
                 }
             }
@@ -263,24 +266,28 @@ struct WallpaperBackgroundView: View {
     let wallpaper: WallpaperData
     let isFirstWallpaper: Bool
     let screenSize: CGSize  // Fixed screen size parameter
+    let cornerRadius: CGFloat
     
     var body: some View {
-        if !wallpaper.imageName.isEmpty && UIImage(named: wallpaper.imageName) != nil {
-            Image(wallpaper.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fill)  // Changed from .fit to .fill
-                .frame(width: screenSize.width, height: screenSize.height)  // Explicit frame sizing
-                .clipped()  // Clip overflow to prevent shifting
-        } else {
-            // Fallback colors for first wallpaper or missing images
-            if isFirstWallpaper {
-                Color(red: 0.1, green: 0.1, blue: 0.1)
-                    .frame(width: screenSize.width, height: screenSize.height)
+        Group {
+            if !wallpaper.imageName.isEmpty && UIImage(named: wallpaper.imageName) != nil {
+                Image(wallpaper.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)  // Changed from .fit to .fill
+                    .frame(width: screenSize.width, height: screenSize.height)  // Explicit frame sizing
+                    .clipped()  // Clip overflow to prevent shifting
             } else {
-                wallpaper.fallbackColor
-                    .frame(width: screenSize.width, height: screenSize.height)
+                // Fallback colors for first wallpaper or missing images
+                if isFirstWallpaper {
+                    Color(red: 0.1, green: 0.1, blue: 0.1)
+                        .frame(width: screenSize.width, height: screenSize.height)
+                } else {
+                    wallpaper.fallbackColor
+                        .frame(width: screenSize.width, height: screenSize.height)
+                }
             }
         }
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius)) // Apply rounded corners to individual wallpaper
     }
 }
 
