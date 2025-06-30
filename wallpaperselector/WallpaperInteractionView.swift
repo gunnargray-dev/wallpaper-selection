@@ -367,8 +367,8 @@ struct MainToolbarView: View {
     var body: some View {
         if isVisible {
             VStack {
-                HStack(spacing: 16) {
-                    // Profile image
+                HStack {
+                    // User avatar on the left
                     Button(action: {}) {
                         Image(systemName: "person.circle.fill")
                             .foregroundColor(.white)
@@ -382,27 +382,21 @@ struct MainToolbarView: View {
                     
                     Spacer()
                     
-                    // Centered title
-                    Text("wallpaper selector")
-                        .foregroundColor(.white)
-                        .font(.system(size: 18, weight: .medium))
-                        .textCase(.lowercase)
+                    // Logo spot in the middle
+                    Button(action: {}) {
+                        // Placeholder logo - you can replace with actual logo
+                        Image(systemName: "photo.stack.fill")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24, weight: .medium))
+                    }
                     
                     Spacer()
                     
-                    // Right side elements
-                    HStack(spacing: 12) {
-                        Button(action: {}) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundColor(.white.opacity(0.8))
-                                .font(.system(size: 16))
-                        }
-                        
-                        Button(action: {}) {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(.white.opacity(0.8))
-                                .font(.system(size: 18))
-                        }
+                    // Globe icon on the right
+                    Button(action: {}) {
+                        Image(systemName: "globe")
+                            .foregroundColor(.white.opacity(0.8))
+                            .font(.system(size: 20))
                     }
                 }
                 .padding(.horizontal, 20)
