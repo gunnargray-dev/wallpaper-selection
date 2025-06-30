@@ -77,6 +77,14 @@ struct WallpaperInteractionView: View {
             }
             .scaleEffect(scaleFactor, anchor: .center) // Scale from center for better visual
         }
+        .overlay(
+            // Toolbar overlay - separate from wallpaper content
+            ToolbarView(
+                isVisible: scaleFactor < 1.0,
+                opacity: toolbarOpacity,
+                onDismiss: dismissWallpaperSelector
+            )
+        )
         .gesture(
             DragGesture()
                 .onEnded { value in
@@ -97,9 +105,10 @@ struct WallpaperInteractionView: View {
     }
     
     private func initiateWallpaperSelection() {
-        // Scale down animation with rounded corners
+        // Scale down animation with rounded corners and show toolbar
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             scaleFactor = 0.75
+            toolbarOpacity = 1.0
         }
         
         // Enable scroll after animation completes
@@ -112,9 +121,10 @@ struct WallpaperInteractionView: View {
         // First disable scrolling
         isScrollEnabled = false
         
-        // Scale up animation with corner radius reset
+        // Scale up animation with corner radius reset and hide toolbar
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             scaleFactor = 1.0
+            toolbarOpacity = 0.0
         }
     }
     
@@ -185,10 +195,10 @@ struct BottomInputAreaView: View {
             .frame(height: 100)
             .background {
                 ZStack {
-                    Color.black.opacity(0.3) // Dark base layer
+                    // Color.black.opacity(0.9) // Dark base layer
                     Rectangle()
                         .fill(.ultraThinMaterial)
-                        .opacity(0.8) // Material overlay
+                        .opacity(1.0) // Material overlay
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 24))
@@ -207,9 +217,9 @@ struct InputTextAreaView: View {
     var body: some View {
         HStack {
             Text("Ask anything...")
-                .foregroundColor(.white.opacity(0.75))
+                .foregroundColor(.white.opacity(0.5))
                 .font(.system(size: 16))
-                .blendMode(.overlay)
+                
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -239,12 +249,12 @@ struct LeftSideControlsView: View {
                 Image(systemName: "plus")
                     .foregroundColor(.white)
                     .font(.system(size: 16, weight: .medium))
-                    .blendMode(.overlay)
+                    
                     .frame(width: 32, height: 32)
                     .background {
                         Circle()
                             .fill(.ultraThinMaterial)
-                            .opacity(0.5)
+                            
                     }
             }
             
@@ -254,14 +264,14 @@ struct LeftSideControlsView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .medium))
-                        .blendMode(.overlay)
+                        
                 }
-                .frame(height: 32)
-                .padding(.horizontal, 12)
+                .frame(width: 32, height: 32)
+                
                 .background {
                     Capsule()
                         .fill(.ultraThinMaterial)
-                        .opacity(0.5)
+                        
                 }
             }
         }
@@ -277,12 +287,11 @@ struct RightSideControlsView: View {
                 Image(systemName: "mic")
                     .foregroundColor(.white)
                     .font(.system(size: 16, weight: .medium))
-                    .blendMode(.overlay)
                     .frame(width: 32, height: 32)
                     .background {
                         Circle()
                             .fill(.ultraThinMaterial)
-                            .opacity(0.5)
+                            
                     }
             }
             
@@ -291,18 +300,47 @@ struct RightSideControlsView: View {
                 Image(systemName: "waveform")
                     .foregroundColor(.white)
                     .font(.system(size: 16, weight: .medium))
-                    .blendMode(.overlay)
+                   
                     .frame(width: 32, height: 32)
                     .background {
                         Circle()
                             .fill(.ultraThinMaterial)
-                            .opacity(0.5)
                     }
-                    .overlay(
-                        Circle()
-                            .stroke(.quaternary, lineWidth: 0.5)
-                    )
             }
+        }
+    }
+}
+
+// MARK: - Toolbar View
+struct ToolbarView: View {
+    let isVisible: Bool
+    let opacity: Double
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        if isVisible {
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    // Close button
+                    Button(action: onDismiss) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .medium))
+                            .frame(width: 32, height: 32)
+                            .background {
+                                Circle()
+                                    .fill(.ultraThinMaterial)
+                            }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 60) // Account for safe area
+                
+                Spacer()
+            }
+            .opacity(opacity)
         }
     }
 }
