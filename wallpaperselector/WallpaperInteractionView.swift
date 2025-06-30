@@ -320,24 +320,26 @@ struct ToolbarView: View {
     var body: some View {
         if isVisible {
             VStack {
-                HStack {
-                    // Title
+                ZStack {
+                    // Centered title
                     Text("Choose a wallpaper")
                         .foregroundColor(.white)
                         .font(.system(size: 18, weight: .semibold))
                     
-                    Spacer()
-                    
-                    // Close button
-                    Button(action: onDismiss) {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .medium))
-                            .frame(width: 32, height: 32)
-                            .background {
-                                Circle()
-                                    .fill(.ultraThinMaterial)
-                            }
+                    // Close button aligned to trailing edge
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: onDismiss) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .medium))
+                                .frame(width: 32, height: 32)
+                                .background {
+                                    Circle()
+                                        .fill(.ultraThinMaterial)
+                                }
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
