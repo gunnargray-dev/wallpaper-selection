@@ -152,95 +152,7 @@ struct MainContentView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            // Bottom input area with ultrathin material
-            VStack(spacing: 12) {
-                VStack(spacing: 16) {
-                    // Input text area
-                    HStack {
-                        Text("Ask anything...")
-                            .foregroundColor(.white.opacity(0.75))
-                            .font(.system(size: 16))
-                            .blendMode(.overlay)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    
-                    // Controls row
-                    HStack {
-                        // Left side controls
-                        HStack(spacing: 8) {
-                            // Plus button
-                            Button(action: {}) {
-                                Image(systemName: "plus")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .blendMode(.overlay)
-                                    .frame(width: 32, height: 32)
-                                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
-                            }
-                            
-                            // Search mode button
-                            Button(action: {}) {
-                                HStack() {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 16, weight: .medium))
-                                        .blendMode(.overlay)
-                                }
-                                .frame(height: 32)
-                                .padding(.horizontal, 12)
-                                .background(.ultraThinMaterial.opacity(0.5), in: Capsule())
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        // Right side controls
-                        HStack(spacing: 8) {
-                            // Microphone button
-                            Button(action: {}) {
-                                Image(systemName: "mic")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .blendMode(.overlay)
-                                    .frame(width: 32, height: 32)
-                                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
-                            }
-                            
-                            // Voice-to-voice button (active)
-                            Button(action: {}) {
-                                Image(systemName: "waveform")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .blendMode(.overlay)
-                                    .frame(width: 32, height: 32)
-                                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
-                                    .overlay(
-                                        Circle()
-                                            .stroke(.quaternary, lineWidth: 0.5)
-                                    )
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.bottom, 12)
-                }
-                .frame(height: 100)
-                .background(
-                    ZStack {
-                        Color.black.opacity(0.3) // Dark base layer
-                        .ultraThinMaterial.opacity(0.8) // Material overlay
-                    },
-                    in: RoundedRectangle(cornerRadius: 24)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 24)
-                        .stroke(.quaternary, lineWidth: 0.5)
-                )
-            }
-            .padding(.horizontal, 12)
-            .padding(.bottom, max(safeAreaInsets.bottom, 34))
+            BottomInputAreaView(safeAreaInsets: safeAreaInsets)
         }
         .frame(width: screenSize.width, height: screenSize.height)
         .clipped() // Ensure content doesn't overflow during scaling
@@ -257,6 +169,123 @@ struct MainContentView: View {
                 }
             }
         )
+    }
+}
+
+// MARK: - Bottom Input Area View
+struct BottomInputAreaView: View {
+    let safeAreaInsets: EdgeInsets
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            VStack(spacing: 16) {
+                InputTextAreaView()
+                ControlsRowView()
+            }
+            .frame(height: 100)
+            .background(
+                ZStack {
+                    Color.black.opacity(0.3) // Dark base layer
+                    .ultraThinMaterial.opacity(0.8) // Material overlay
+                },
+                in: RoundedRectangle(cornerRadius: 24)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 24)
+                    .stroke(.quaternary, lineWidth: 0.5)
+            )
+        }
+        .padding(.horizontal, 12)
+        .padding(.bottom, max(safeAreaInsets.bottom, 34))
+    }
+}
+
+// MARK: - Input Text Area View
+struct InputTextAreaView: View {
+    var body: some View {
+        HStack {
+            Text("Ask anything...")
+                .foregroundColor(.white.opacity(0.75))
+                .font(.system(size: 16))
+                .blendMode(.overlay)
+            Spacer()
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 20)
+    }
+}
+
+// MARK: - Controls Row View
+struct ControlsRowView: View {
+    var body: some View {
+        HStack {
+            LeftSideControlsView()
+            Spacer()
+            RightSideControlsView()
+        }
+        .padding(.horizontal, 12)
+        .padding(.bottom, 12)
+    }
+}
+
+// MARK: - Left Side Controls View
+struct LeftSideControlsView: View {
+    var body: some View {
+        HStack(spacing: 8) {
+            // Plus button
+            Button(action: {}) {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .medium))
+                    .blendMode(.overlay)
+                    .frame(width: 32, height: 32)
+                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+            }
+            
+            // Search mode button
+            Button(action: {}) {
+                HStack() {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white)
+                        .font(.system(size: 16, weight: .medium))
+                        .blendMode(.overlay)
+                }
+                .frame(height: 32)
+                .padding(.horizontal, 12)
+                .background(.ultraThinMaterial.opacity(0.5), in: Capsule())
+            }
+        }
+    }
+}
+
+// MARK: - Right Side Controls View
+struct RightSideControlsView: View {
+    var body: some View {
+        HStack(spacing: 8) {
+            // Microphone button
+            Button(action: {}) {
+                Image(systemName: "mic")
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .medium))
+                    .blendMode(.overlay)
+                    .frame(width: 32, height: 32)
+                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+            }
+            
+            // Voice-to-voice button (active)
+            Button(action: {}) {
+                Image(systemName: "waveform")
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .medium))
+                    .blendMode(.overlay)
+                    .frame(width: 32, height: 32)
+                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(.quaternary, lineWidth: 0.5)
+                    )
+            }
+        }
     }
 }
 
