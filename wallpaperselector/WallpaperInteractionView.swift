@@ -7,6 +7,11 @@ struct WallpaperInteractionView: View {
     @State private var currentWallpaperIndex: Int? = 0
     @State private var toolbarOpacity: Double = 1.0
     
+    // Computed property for corner radius based on scale factor
+    private var cornerRadius: CGFloat {
+        return scaleFactor < 1.0 ? 36 : 0
+    }
+    
     // Sample wallpapers with images and fallback colors
     private let wallpapers: [WallpaperData] = [
         WallpaperData(imageName: "wallpaper_1", fallbackColor: Color(.systemGray5)),
@@ -70,6 +75,7 @@ struct WallpaperInteractionView: View {
                 }
             }
             .scaleEffect(scaleFactor, anchor: .center) // Scale from center for better visual
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius)) // Add rounded corners when scaled down
         }
         .gesture(
             DragGesture()
@@ -91,7 +97,7 @@ struct WallpaperInteractionView: View {
     }
     
     private func initiateWallpaperSelection() {
-        // Scale down animation only (no toolbar)
+        // Scale down animation with rounded corners
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             scaleFactor = 0.75
         }
@@ -106,7 +112,7 @@ struct WallpaperInteractionView: View {
         // First disable scrolling
         isScrollEnabled = false
         
-        // Scale up animation only (no toolbar)
+        // Scale up animation with corner radius reset
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             scaleFactor = 1.0
         }
