@@ -183,13 +183,15 @@ struct BottomInputAreaView: View {
                 ControlsRowView()
             }
             .frame(height: 100)
-            .background(
+            .background {
                 ZStack {
                     Color.black.opacity(0.3) // Dark base layer
-                    .ultraThinMaterial.opacity(0.8) // Material overlay
-                },
-                in: RoundedRectangle(cornerRadius: 24)
-            )
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .opacity(0.8) // Material overlay
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 24))
             .overlay(
                 RoundedRectangle(cornerRadius: 24)
                     .stroke(.quaternary, lineWidth: 0.5)
@@ -239,7 +241,11 @@ struct LeftSideControlsView: View {
                     .font(.system(size: 16, weight: .medium))
                     .blendMode(.overlay)
                     .frame(width: 32, height: 32)
-                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+                    .background {
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .opacity(0.5)
+                    }
             }
             
             // Search mode button
@@ -252,7 +258,11 @@ struct LeftSideControlsView: View {
                 }
                 .frame(height: 32)
                 .padding(.horizontal, 12)
-                .background(.ultraThinMaterial.opacity(0.5), in: Capsule())
+                .background {
+                    Capsule()
+                        .fill(.ultraThinMaterial)
+                        .opacity(0.5)
+                }
             }
         }
     }
@@ -269,7 +279,11 @@ struct RightSideControlsView: View {
                     .font(.system(size: 16, weight: .medium))
                     .blendMode(.overlay)
                     .frame(width: 32, height: 32)
-                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+                    .background {
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .opacity(0.5)
+                    }
             }
             
             // Voice-to-voice button (active)
@@ -279,7 +293,11 @@ struct RightSideControlsView: View {
                     .font(.system(size: 16, weight: .medium))
                     .blendMode(.overlay)
                     .frame(width: 32, height: 32)
-                    .background(.ultraThinMaterial.opacity(0.5), in: Circle())
+                    .background {
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .opacity(0.5)
+                    }
                     .overlay(
                         Circle()
                             .stroke(.quaternary, lineWidth: 0.5)
