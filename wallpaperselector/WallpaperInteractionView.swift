@@ -67,8 +67,6 @@ struct WallpaperInteractionView: View {
                 }
                 .scrollDisabled(!isScrollEnabled) // Control scroll availability
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne)) // Change behavior
-                // removed drawingGroup to avoid rendering issues
-                // .drawingGroup() // Rasterize during transform to avoid jitter
                 // iOS 17+ specific fix for content clipping
                 .scrollClipDisabled(true)
                 .onLongPressGesture(minimumDuration: 0.5) {
@@ -386,7 +384,7 @@ struct MainToolbarView: View {
                         Image("logo-pro")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 24)
+                            .frame(height: 20)
                     }
                     
                     Spacer()
