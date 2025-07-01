@@ -12,12 +12,12 @@ struct WallpaperInteractionView: View {
         return scaleFactor < 1.0 ? 36 : 0
     }
     
-    // Sample wallpapers with images and fallback colors
+    // Sample wallpapers with colored backgrounds (no images for demo)
     private let wallpapers: [WallpaperData] = [
-        WallpaperData(imageName: "wallpaper_1", fallbackColor: Color(.systemGray5)),
-        WallpaperData(imageName: "wallpaper_2", fallbackColor: .blue),
-        WallpaperData(imageName: "wallpaper_3", fallbackColor: .green),
-        WallpaperData(imageName: "wallpaper_4", fallbackColor: .orange)
+        WallpaperData(imageName: "", fallbackColor: Color.purple),
+        WallpaperData(imageName: "", fallbackColor: Color.blue),
+        WallpaperData(imageName: "", fallbackColor: Color.green),
+        WallpaperData(imageName: "", fallbackColor: Color.orange)
     ]
     
     // Fixed screen dimensions - calculated once at initialization for best performance
@@ -154,7 +154,7 @@ struct MainContentView: View {
     let showBackground: Bool
     let cornerRadius: CGFloat
     
-    init(wallpaper: WallpaperData = WallpaperData(imageName: "wallpaper_1", fallbackColor: Color(.systemGray5)), isFirstWallpaper: Bool = true, screenSize: CGSize = CGSize(width: 400, height: 800), safeAreaInsets: EdgeInsets = EdgeInsets(), showBackground: Bool = true, cornerRadius: CGFloat = 0) {
+    init(wallpaper: WallpaperData = WallpaperData(imageName: "", fallbackColor: Color.purple), isFirstWallpaper: Bool = true, screenSize: CGSize = CGSize(width: 400, height: 800), safeAreaInsets: EdgeInsets = EdgeInsets(), showBackground: Bool = true, cornerRadius: CGFloat = 0) {
         self.wallpaper = wallpaper
         self.isFirstWallpaper = isFirstWallpaper
         self.screenSize = screenSize
@@ -368,23 +368,25 @@ struct MainToolbarView: View {
         if isVisible {
             VStack {
                 HStack {
-                    // User avatar on the left
+                    // User avatar placeholder on the left
                     Button(action: {}) {
-                        Image("avatar")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                        Circle()
+                            .fill(Color.gray.opacity(0.6))
                             .frame(width: 32, height: 32)
-                            .clipShape(Circle())
+                            .overlay(
+                                Image(systemName: "person.fill")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 16))
+                            )
                     }
                     
                     Spacer()
                     
-                    // Logo in the middle
+                    // Logo placeholder in the middle
                     Button(action: {}) {
-                        Image("logo-pro")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 20)
+                        Text("Logo")
+                            .foregroundColor(.white)
+                            .font(.system(size: 18, weight: .semibold))
                     }
                     
                     Spacer()

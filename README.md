@@ -1,10 +1,6 @@
 # Wallpaper Selector
 
 <p align="center">
-  <img src="wallpaperselector/Assets.xcassets/logo-pro.imageset/logo-pro.svg" alt="Wallpaper Selector Logo" width="120">
-</p>
-
-<p align="center">
   <strong>A beautiful, gesture-driven wallpaper selection experience for iOS</strong>
 </p>
 
@@ -18,6 +14,8 @@
 ## Overview
 
 Wallpaper Selector is a modern iOS application that provides an intuitive and visually appealing way to browse and select wallpapers. Built with SwiftUI, it features smooth animations, gesture-based interactions, and a clean, minimalist design inspired by contemporary iOS design patterns.
+
+> **Note**: This demo version uses colored backgrounds and placeholder assets. Replace with your own wallpaper images and branding assets for production use.
 
 ## ✨ Features
 
@@ -139,9 +137,9 @@ wallpaperselector/
 ## 🎨 Customization
 
 ### Adding Wallpapers
-1. Add images to `Assets.xcassets`
-2. Create new `WallpaperData` entries in `wallpapers` array
-3. Reference the asset name and provide a fallback color
+1. Add images to `Assets.xcassets` (currently using colored backgrounds)
+2. Update `WallpaperData` entries in `wallpapers` array with image names
+3. Set appropriate fallback colors for each wallpaper
 
 ### Styling
 - **Corner Radius**: Modify `cornerRadius` computed property
@@ -149,9 +147,10 @@ wallpaperselector/
 - **Animation Timing**: Update spring animation parameters
 - **Material Opacity**: Customize background transparency
 
-### Branding
-- Replace `avatar.png` with your profile image
-- Replace `logo-pro.svg` with your brand logo
+### Replacing Placeholder Content
+- **Avatar**: Replace the gray circle with person icon in `MainToolbarView`
+- **Logo**: Replace "Logo" text with your brand logo image or custom view
+- **Wallpapers**: Replace empty `imageName` strings with actual image asset names
 - Update app name and metadata in project settings
 
 ## 🤝 Contributing
